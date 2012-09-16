@@ -8,11 +8,9 @@ namespace StringAnalysis
 {
     public class Bigram
     {
-        private string _source;
-
         public Bigram()
         {
-            _source = string.Empty;
+            Source = string.Empty;
         }
 
         public Bigram(string value)
@@ -24,9 +22,11 @@ namespace StringAnalysis
 
         public void InitializeForValue(string value)
         {
-            _source = value;
+            Source = value;
             BigramSet = BuildBigramSet(value);
         }
+
+        public string Source { get; private set; }
 
         private static HashSet<string> BuildBigramSet(string input)
         {
@@ -37,6 +37,26 @@ namespace StringAnalysis
                 bigrams.Add(input.Substring(i, 2));
             }
             return bigrams;
+        }
+
+        public double DiceCoefficient(Bigram compareTo)
+        {
+            var intersection = this.BigramSet.Intersect(compareTo.BigramSet);
+
+            return CalculateDiceCoefficient(intersection.Count(), this.BigramSet.Count, compareTo.BigramSet.Count);
+        }
+
+        public double DiceCoefficient(string compareTo)
+        {
+            Bigram compareBigram = new Bigram(compareTo);
+            var intersection = this.BigramSet.Intersect(compareBigram.BigramSet);
+
+            return CalculateDiceCoefficient(intersection.Count(), this.BigramSet.Count, compareBigram.BigramSet.Count);
+        }
+
+        private double CalculateDiceCoefficient(int intersectionCount, int setXCount, int setYCount)
+        {
+            return (2 * intersectionCount) / (setXCount + setYCount);
         }
     }
 }

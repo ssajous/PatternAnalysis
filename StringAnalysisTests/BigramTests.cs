@@ -127,6 +127,34 @@ namespace StringAnalysisTests
             Assert.That(result.Count, Is.EqualTo(expectedCount));
             Assert.That(result.Contains(expected), Is.True);
         }
+
+        [Test]
+        public void DiceCoefficient_Matching_Bigrams_Returns_1()
+        {
+            string testValue = "test";
+            double expected = 1.0;
+
+            var sut = new Bigram(testValue);
+            var sutCompare = new Bigram(testValue);
+
+            var result = sut.DiceCoefficient(sutCompare);
+
+            Assert.That(result, Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void DiceCoefficient_Matching_Strings_Returns_1()
+        {
+            string testValue = "test";
+            double expected = 1.0;
+
+            var sut = new Bigram(testValue);
+            var sutCompare = new Bigram(testValue);
+
+            var result = sut.DiceCoefficient(testValue);
+
+            Assert.That(result, Is.EqualTo(expected));
+        }
         
     }
 }
