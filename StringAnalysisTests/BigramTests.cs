@@ -155,6 +155,35 @@ namespace StringAnalysisTests
 
             Assert.That(result, Is.EqualTo(expected));
         }
+
+        [Test]
+        public void DiceCoefficient_Completely_Different_Bigrams_Returns_0()
+        {
+            string testValue1 = "abcd";
+            string testValue2 = "wxyz";
+            double expected = 0.0;
+
+            var sut = new Bigram(testValue1);
+            var sutCompare = new Bigram(testValue2);
+
+            var result = sut.DiceCoefficient(sutCompare);
+
+            Assert.That(result, Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void DiceCoefficient_Completely_Different_Strings_Returns_0()
+        {
+            string testValue1 = "abcd";
+            string testValue2 = "wxyz";
+            double expected = 0.0;
+
+            var sut = new Bigram(testValue1);
+
+            var result = sut.DiceCoefficient(testValue2);
+
+            Assert.That(result, Is.EqualTo(expected));
+        }
         
     }
 }
