@@ -17,15 +17,15 @@ namespace StringAnalysis
 
         public Bigram(string value)
         {
-            _source = value;
-            BigramSet = BuildBigramSet(value);
+            InitializeForValue(value);
         }
 
         public HashSet<string> BigramSet { get; private set; }
 
         public void InitializeForValue(string value)
         {
-            throw NotImplementedException();
+            _source = value;
+            BigramSet = BuildBigramSet(value);
         }
 
         private static HashSet<string> BuildBigramSet(string input)

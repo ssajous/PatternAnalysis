@@ -60,8 +60,8 @@ namespace StringAnalysisTests
         [Test]
         public void InitializeWithValue_Repeat_Pairs_Yields_One_Item_Set()
         {
-            string testValue = "hi";
-            string expected = "hi";
+            string testValue = "iiii";
+            string expected = "ii";
             int expectedCount = 1;
 
             var sut = new Bigram();
@@ -71,5 +71,62 @@ namespace StringAnalysisTests
             Assert.That(result.Count, Is.EqualTo(expectedCount));
             Assert.That(result.Contains(expected), Is.True);
         }
+
+        [Test]
+        public void Constructor_Empty_String_Yields_Empty_Set() 
+        {
+            string testValue = string.Empty;
+            int expected = 0;
+
+            var sut = new Bigram(testValue);
+            var result = sut.BigramSet;
+
+            Assert.That(result.Count, Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void Constructor_Two_Char_String_Yields_One_Item_Set()
+        {
+            string testValue = "hi";
+            string expected = "hi";
+            int expectedCount = 1;
+
+            var sut = new Bigram(testValue);
+            var result = sut.BigramSet;
+
+            Assert.That(result.Count, Is.EqualTo(expectedCount));
+            Assert.That(result.Contains(expected), Is.True);
+        }
+
+        [Test]
+        public void Constructor_Multi_Char_String_Yields_Correct_Item_Set()
+        {
+            string testValue = "hello";
+            int expectedCount = 4;
+
+            var sut = new Bigram(testValue);
+            var result = sut.BigramSet;
+
+            Assert.That(result.Count, Is.EqualTo(expectedCount));
+            Assert.That(result.Contains("he"), Is.True);
+            Assert.That(result.Contains("el"), Is.True);
+            Assert.That(result.Contains("ll"), Is.True);
+            Assert.That(result.Contains("lo"), Is.True);
+        }
+
+        [Test]
+        public void Constructor_Repeat_Pairs_Yields_One_Item_Set()
+        {
+            string testValue = "iiii";
+            string expected = "ii";
+            int expectedCount = 1;
+
+            var sut = new Bigram(testValue);
+            var result = sut.BigramSet;
+
+            Assert.That(result.Count, Is.EqualTo(expectedCount));
+            Assert.That(result.Contains(expected), Is.True);
+        }
+        
     }
 }
