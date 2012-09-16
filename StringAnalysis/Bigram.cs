@@ -41,6 +41,8 @@ namespace StringAnalysis
 
         public double DiceCoefficient(Bigram compareTo)
         {
+            if (compareTo == null) throw new ArgumentNullException("compareTo");
+
             var intersection = this.BigramSet.Intersect(compareTo.BigramSet);
 
             return CalculateDiceCoefficient(intersection.Count(), this.BigramSet.Count, compareTo.BigramSet.Count);
@@ -54,7 +56,7 @@ namespace StringAnalysis
             return CalculateDiceCoefficient(intersection.Count(), this.BigramSet.Count, compareBigram.BigramSet.Count);
         }
 
-        private double CalculateDiceCoefficient(int intersectionCount, int setXCount, int setYCount)
+        private static double CalculateDiceCoefficient(int intersectionCount, int setXCount, int setYCount)
         {
             return (2 * intersectionCount) / (setXCount + setYCount);
         }
